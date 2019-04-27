@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div style="border: 1px none; text-align: center;"><h1 style="font-size: 20px;">Signup Here!!!</h1>
+        <div><hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);"></div>
+    </div>
+
+    <form method="post" name="signup_form">{% csrf_token %}
+
+        <div id="form_input">
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 20px;">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="username" name="username" placeholder="username" style="color: rgb(0,0,0);">
+            </div>
+
+            <div id = "empty_username" style="text-align : center;">
+            </div>
+
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+                <i class="material-icons prefix">mail</i>
+                <input id="icon_prefix" type="email" class="validate" name="email" placeholder="email" style="color: rgb(227, 25, 96);">
+            </div>
+
+            <div id = "empty_email" style="text-align : center;">
+            </div>
+
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+                <i class="material-icons prefix">phone</i>
+                <input id="icon_prefix" type="text" class="validate" name="mobile" placeholder="mobile number" style="color: rgb(227, 25, 96);">
+            </div>
+
+            <div id = "empty_mobile" style="text-align : center;">
+            </div>
+
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+                <i class="material-icons prefix">lock_outline</i>
+                <input id="icon_prefix" type="password" class="validate" name="password" placeholder="password" style="color: rgb(227, 25, 96);">
+            </div>
+
+            <div id = "empty_password" style="text-align : center;">
+            </div>
+
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+                <i class="material-icons prefix">lock_outline</i>
+                <input id="icon_prefix" type="password" class="validate" name="confirm" placeholder="confirm password" style="color: rgb(227, 25, 96);">
+            </div>
+
+            <div id = "empty_confirm" style="text-align : center;">
+            </div>
+
+            <div id = "message" style="text-align : center; margin-top : 30px; margin-bottom : 30px;">
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="submit">
+                    Submit<i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+
+        <div id="otp_input">
+
+            <div style="text-align : center; margin-top : 40px;">
+                Enter OTP, which we sent on your email id
+            </div>
+
+            <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+                <i class="material-icons prefix">message</i>
+                <input id="icon_prefix" type="text" class="validate" name="otp" placeholder="enter otp" maxlength="6" style="color: rgb(227, 25, 96);">
+            </div>
+
+            <div id = "empty_otp" style="text-align : center;">
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="send_detail">
+                    Submit<i class="material-icons right">send</i>
+                </button>
+            </div>
+            <script type="text/javascript">
+                $("#otp_input").hide();
+                // $("#otp_input").children().attr("disabled","disabled");
+            </script>;
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+
+        var user_username;
+        var user_email;
+        var user_mobile;
+        var user_password;
+        var user_otp;
+        $('#submit').click(function(e){
+            e.preventDefault();
+            var x1 = 0;
+            var x2 = 0;
+            var x3 = 0;
+            var x4 = 0;
+            var x5 = 0;
+            var username = document.forms["signup_form"]["username"].value;
+            if(username.length < 6){
+                if(username == ""){
+                    $("#empty_username").empty();
+                    $("#empty_username").append("Please fill your username");
+                }
+                else{
+                    $("#empty_username").empty();
+                    $("#empty_username").append("Username must be atleast 6 characters");
+                }
+            }
+            else{
+                $("#empty_username").empty();
+                user = username.toLowerCase();
+                x1 = 1;
+            }
+
+            var email = document.forms["signup_form"]["email"].value;
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+            if(email == ""){
+                $("#empty_email").empty();
+                $("#empty_email").append("Please fill your email id");
+            }
+            else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){
+                $("#empty_email").empty();
+                $("#empty_email").append("Please enter valid email id");
+            }
+            else{
+                $("#empty_email").empty();
+                x2 = 1;
+            }
+
+            var mobile = document.forms["signup_form"]["mobile"].value;
+            if(mobile == ""){
+                $("#empty_mobile").empty();
+                $("#empty_mobile").append("Please fill your mobile number");
+            }
+            else if(mobile.length < 10 || isNaN(mobile)){
+                $("#empty_mobile").empty();
+                $("#empty_mobile").append("Please enter valid mobile number");
+            }
+            else{
+                $("#empty_mobile").empty();
+                x3 = 1;
+            }
+
+            var password = document.forms["signup_form"]["password"].value;
+            var confirm = document.forms["signup_form"]["confirm"].value;
+            if(password == ""){
+                $("#empty_password").empty();
+                $("#empty_password").append("Please fill your password");
+            }
+            else if(password.length < 6){
+                $("#empty_password").empty();
+                $("#empty_password").append("Password must be atleast 6 characters");
+            }
+            else if(password != confirm){
+                $("#empty_confirm").empty();
+                $("#empty_password").empty();
+                $("#empty_password").append("Password doesn't match");
+                $("#empty_confirm").append("Password does't match");
+            }
+            else{
+                $("#empty_password").empty();
+                x4 = 1;
+            }
+
+            if(confirm == ""){
+                $("#empty_confirm").empty();
+                $("#empty_confirm").append("Please fill your confirmational password");
+            }
+            else if(confirm.length < 6){
+                $("#empty_confirm").empty();
+                $("#empty_confirm").append("Password must be atleast 6 characters");
+            }
+            else if(password != confirm){
+                $("#empty_confirm").empty();
+                $("#empty_password").empty();
+                $("#empty_password").append("Password doesn't match");
+                $("#empty_confirm").append("Password does't match");
+            }
+            else{
+                $("#empty_confirm").empty();
+                x5 = 1;
+            }
+
+            if(x1 == 1 && x2 == 1 && x3 == 1 && x4 == 1 && x5 == 1){
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                var csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    url :  'http://127.0.0.1:8000/signup_file/',
+                    type : "POST",
+                    data : {
+                        csrfmiddlewaretoken : csrftoken,
+                        user : user,
+                        password : password,
+                        email : email,
+                        mobile : mobile,
+                    },
+                    success : function(json) {
+                        $("#message").empty();
+                        $("#message").append(json['message']);
+                        if(json['signal'] == 1){
+                            $("#form_input").hide();
+                            $("#otp_input").show();
+                            user_username = user;
+                            user_password = password;
+                            user_email = email;
+                            user_mobile = mobile;
+                            user_otp = json['otp'];
+                        }
+                    },
+                    error : function(xhr,errmsg,err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#send_detail").click(function(e){
+            e.preventDefault();
+            var otp = document.forms["signup_form"]["otp"].value;
+            if(otp.length<6){
+                $("#empty_otp").empty();
+                $("#empty_otp").append("Please fill valid 6 digit otp number");
+            }
+            else{
+                $("#empty_otp").empty();
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                var csrftoken = getCookie('csrftoken');
+
+                $.ajax({
+                    url :  'http://127.0.0.1:8000/otp_file/',
+                    type : "POST",
+                    data : {
+                        csrfmiddlewaretoken : csrftoken,
+                        user : user_username,
+                        password : user_password,
+                        email : user_email,
+                        mobile : user_mobile,
+                        user_otp : user_otp,
+                        otp : otp,
+                    },
+                    success : function(json){
+                        if(json["signal"]==1){
+                            var sent_page = "http://"+window.location.hostname+":8000/home_page/";
+                            window.location.href = sent_page;
+                        }
+                        else{
+                            $("#form_input").show();
+                            $("#otp_input").hide();
+                            $("#message").empty();
+                            $("#message").append(json["message"]);
+                            document.forms["signup_form"]["otp"].value = "";
+                        }
+                    },
+                    error : function(xhr,errmsg,err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+    </script>
+
+
+
+    <div id="signup_other">
+
+        <div style="border: 1px none; margin-top: 30px;">
+            <p style="font-family: Arial; font-size: 13px; color: rgb(133, 65, 23); text-align: center;">
+                <a href="login.html" style="font-size: 14px; color: rgb(61, 61, 161);">Login here</a>, if you already have account
+            </p>
+        </div>
+
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0); text-align: center; color: rgb(0, 0, 0); margin-bottom: 20px;">
+        </div>
+
+        <div style="border: 1px none; margin-top: 30px;">
+            <p style="font-family: Arial; font-size: 14px; color: rgb(133, 65, 23); text-align: center;">or Signup with</p>
+        </div>
+
+
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" style="padding: 0px 20px; margin: 0px; text-align: center; background-color: rgb(200, 33, 222); color: rgb(250, 250, 250); text-transform: lowercase; font-size: 14px;">facebook</button>
+        </div>
+
+        <div style="margin-bottom: 20px; margin-top: 20px;">
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0); text-align: center; color: rgb(0, 0, 0);">
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" style="padding: 0px 20px; margin: 0px 0px 30px; text-align: center; background-color: rgb(222, 68, 33); color: rgb(250, 250, 250); text-transform: lowercase; font-size: 14px;">google plus</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div style="background-color: rgb(166, 96, 53); padding-bottom: 15px; padding-top: 15px;">
+
+        <div style="display: inline-block; width: 19%; margin: 0px; font-size: 14px; color: rgb(255, 255, 255); text-align: center;">
+            <a href="" style="color: rgb(255, 255, 255); font-size: 13px; font-weight: normal;">Use</a>
+        </div>
+
+        <div style="display: inline-block; width: 19%; margin: 0px; font-size: 13px; color: rgb(255, 255, 255); text-align: center;">
+            <a href="" style="font-size: 13px; color: rgb(255, 255, 255); font-weight: normal;">About Us</a>
+        </div>
+
+        <div style="display: inline-block; width: 20%; margin: 0px; color: rgb(255, 255, 255); font-size: 13px; text-align: center;">
+            <a href="" style="font-weight: normal; font-size: 13px; color: rgb(255, 255, 255);">Author</a>
+        </div>
+
+        <div style="display: inline-block; width: 35%; margin: 0px; color: rgb(255, 255, 255); font-size: 14px; text-align: right;">
+            <a href="" style="font-weight: normal; font-size: 13px; color: rgb(255, 255, 255);">Shivam</a>
+        </div>
+
+    </div>
+
+    <div style="border: 1px none; text-align: center;">
+        <h1 style="font-size: 20px;">Personal Details!!!</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+    </div>
+
+    <form name="details_form">{% csrf_token %}
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 20px;">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" type="text" name="name" placeholder="name" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">mail</i>
+            <input id="icon_prefix" type="email" class="validate" name="email" placeholder="email" style="color: rgb(227, 25, 96);" disabled>
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">phone</i>
+            <input id="icon_prefix" type="text" class="validate" name="mobile" placeholder="mobile number" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">person_pin</i>
+            <input id="icon_prefix" type="text" class="validate" name="profession" placeholder="profession" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">person_outline</i>
+            <input id="icon_prefix" type="text" class="validate" name="gender" placeholder="gender" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="save_details">
+                Save<i class="material-icons right">send</i>
+            </button>
+        </div>
+
+    </form>
+
+    <div style="border: 1px none; text-align: center;">
+        <h1 style="font-size: 20px;">Change Password!!!</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+    </div>
+
+    <form name="password_change_form">{% csrf_token %}
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">lock_outline</i>
+            <input id="icon_prefix" type="password" class="validate" name="old_password" placeholder="old password" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">lock_outline</i>
+            <input id="icon_prefix" type="password" class="validate" name="new_password" placeholder="new password" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">lock_outline</i>
+            <input id="icon_prefix" type="password" class="validate" name="confirm_password" placeholder="confirm password" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="submit">
+                Submit<i class="material-icons right">send</i>
+            </button>
+        </div>
+
+    </form>
+
+    <!-- <div style="border: 1px none; text-align: center;">
+        <h1 style="font-size: 20px;">Change Email Id!!!</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+    </div> -->
+
+    <!-- <form method="post" action="">
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">mail</i>
+            <input id="icon_prefix" type="email" class="validate" name="new_email" placeholder="enter new email id" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="submit">
+                Submit<i class="material-icons right">send</i>
+            </button>
+        </div>
+
+    </form> -->
+
+    <div style="border: 1px none; text-align: center; margin-bottom : 30px;">
+        <h1 style="font-size: 20px;">Notification</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+
+        <div class="switch">
+            <label>
+                Off<input type="checkbox"><span class="lever"></span>On
+            </label>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        $(document).ready(function(){
+            $.ajax({
+                url :  'http://127.0.0.1:8000/setting_file/',
+                type : "GET",
+                success : function(json) {
+                    document.forms["details_form"]["email"].value = json["email"];
+                    document.forms["details_form"]["name"].value = json["name"];
+                    document.forms["details_form"]["mobile"].value = json["mobile"];
+                    document.forms["details_form"]["profession"].value = json["profession"];
+                    document.forms["details_form"]["gender"].value = json["gender"];
+                },
+                error : function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        });
+
+        $("#save_details").click(function(e){
+            e.preventDefault();
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url :  'http://127.0.0.1:8000/setting_file/',
+                type : "POST",
+                data : {
+                    csrfmiddlewaretoken : csrftoken,
+                    email : document.forms["details_form"]["email"].value,
+                    name : document.forms["details_form"]["name"].value,
+                    mobile : document.forms["details_form"]["mobile"].value,
+                    profession : document.forms["details_form"]["profession"].value,
+                    gender : document.forms["details_form"]["gender"].value,
+                },
+                success : function(json) {
+                    alert(json);
+                },
+                error : function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

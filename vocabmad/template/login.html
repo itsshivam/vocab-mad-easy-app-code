@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div style="border: 1px none; text-align: center;">
+        <h1 style="font-size: 20px;">Login Here!!!</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+    </div>
+
+    <form method="post" action="" name="login_form">
+
+	       <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 20px;">
+               <i class="material-icons prefix">account_circle</i>
+		       <input id="icon_prefix" type="text" name="username" placeholder="username" style="color: rgb(0,0,0);">
+           </div>
+
+           <div id = "empty_username" style="text-align : center;">
+           </div>
+
+           <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+               <i class="material-icons prefix">lock_outline</i>
+               <input id="icon_prefix" type="password" name="password" placeholder="password" style="color: rgb(0,0,0);">
+           </div>
+
+           <div id = "empty_password" style="text-align : center;">
+           </div>
+
+           <div id = "message" style="text-align : center; margin-top : 30px; margin-bottom : 30px;">
+           </div>
+
+           <div style="text-align: center; margin-top: 10px;">
+               <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="submit">
+                   Submit<i class="material-icons right">send</i>
+               </button>
+           </div>
+
+       </form>
+
+       <script type="text/javascript">
+            $("#submit").click(function(e){
+                e.preventDefault();
+                var x1 = 0;
+                var x2 = 0;
+                var username = document.forms["login_form"]["username"].value;
+                if(username.length < 6){
+                    $("#empty_username").empty();
+                    $("#empty_username").append("Please fill valid username");
+                }
+                else{
+                    $("#empty_username").empty();
+                    user = username.toLowerCase();
+                    console.log(user);
+                    x1 = 1;
+                }
+
+                var password = document.forms["login_form"]["password"].value;
+                if(password.length < 6){
+                    $("#empty_password").empty();
+                    $("#empty_password").append("Please fill valid password");
+                }
+                else{
+                    $("#empty_password").empty();
+                    console.log(password);
+                    x2 = 1;
+                }
+
+                if(x1==1 && x2==1){
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    var csrftoken = getCookie('csrftoken');
+                    $.ajax({
+                        url :  'http://127.0.0.1:8000/login_file/',
+                        type : "POST",
+                        data : {
+                            csrfmiddlewaretoken : csrftoken,
+                            user : user,
+                            password : password,
+                        },
+                        success : function(json) {
+                            console.log(json);
+                            $("#message").empty();
+                            $("#message").append(json["message"]);
+                            if(json["signal"] == 1){
+                                window.location.href = "http://127.0.0.1:8000/home_page";
+                            }
+                        },
+                        error : function(xhr,errmsg,err) {
+                            console.log(xhr.status + ": " + xhr.responseText);
+                        }
+                    });
+                }
+            });
+        </script>
+
+
+       <div style="border: 1px none; margin-top: 30px;">
+           <p style="font-family: Arial; font-size: 13px; color: rgb(133, 65, 23); text-align: center;"><a href="" style="font-size: 14px; color: rgb(61, 61, 161);">forget password</a>, if you don't remember your password</p>
+       </div>
+
+       <div>
+           <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0); text-align: center; color: rgb(0, 0, 0); margin-bottom: 10px;">
+       </div>
+
+       <div style="border: 1px none; margin-top: 30px;">
+           <p style="font-family: Arial; font-size: 13px; color: rgb(133, 65, 23); text-align: center;"><a href="" style="font-size: 14px; color: rgb(61, 61, 161);">Signup here</a>, if you don't have account</p>
+       </div>
+
+       <div>
+           <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0); text-align: center; color: rgb(0, 0, 0); margin-bottom: 10px;">
+       </div>
+
+       <div style="border: 1px none; margin-top: 30px;">
+           <p style="font-family: Arial; font-size: 14px; color: rgb(133, 65, 23); text-align: center;">Or Login with</p>
+       </div>
+
+       <div style="text-align: center; margin-top: 20px;">
+           <button class="btn waves-effect waves-light" style="padding: 0px 20px; margin: 0px; text-align: center; background-color: rgb(200, 33, 222); color: rgb(250, 250, 250); text-transform: lowercase; font-size: 14px;">facebook</button>
+       </div>
+
+       <div style="margin-bottom: 20px; margin-top: 20px;">
+           <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0); text-align: center; color: rgb(0, 0, 0);">
+       </div>
+
+       <div style="text-align: center;">
+           <button class="btn waves-effect waves-light" style="padding: 0px 20px; margin: 0px 0px 30px; text-align: center; background-color: rgb(222, 68, 33); color: rgb(250, 250, 250); text-transform: lowercase; font-size: 14px;">google plus</button>
+       </div>
+
+</body>
+</html>

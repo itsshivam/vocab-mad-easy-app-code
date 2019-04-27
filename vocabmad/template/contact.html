@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div style="border: 1px none; text-align: center;">
+        <h1 style="font-size: 20px;">For Query, Please Contact</h1>
+        <div>
+            <hr style="width: 60%; height: 2px; background-color: rgb(0, 0, 0);">
+        </div>
+    </div>
+
+    <form method="post" action="" name="contact_form">
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 20px;">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" type="text" class="validate" name="username" placeholder="username" style="color: rgb(0,0,0);">
+        </div>
+
+        <div id="empty_username" style="text-align : center">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">mail</i>
+            <input id="icon_prefix" type="text" class="validate" name="email" placeholder="email" style="color: rgb(227, 25, 96);">
+        </div>
+
+        <div id="empty_email" style="text-align : center">
+        </div>
+
+        <div class="input-field" style="padding: 0px 30px; margin-bottom: 0px; margin-top: 0px;">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea id="icon_prefix2" class="materialize-textarea" name="message"></textarea>
+        </div>
+
+        <div id="empty_message" style="text-align : center">
+        </div>
+
+        <div style="text-align: center; margin-top : 30px;">
+            <button class="btn waves-effect waves-light" type="submit" style="padding: 0px 10px; margin: 0px; text-align: center; background-color: rgb(156, 133, 59);" id="submit">
+                Submit<i class="material-icons right">send</i>
+            </button>
+        </div>
+
+    </form>
+
+    <script src="/static/jquery-3.0.0.min.js"></script>
+
+    <script type="text/javascript">
+        $('#submit').click(function(e){
+            e.preventDefault();
+            var x1 = 0;
+            var x2 = 0;
+            var x3 = 0;
+            var username = document.forms["contact_form"]["username"].value;
+            if(username.length < 6){
+                if(username == ""){
+                    $("#empty_username").empty();
+                    $("#empty_username").append("Please fill your username");
+                }
+                else{
+                    $("#empty_username").empty();
+                    $("#empty_username").append("Username must be atleast 6 characters");
+                }
+            }
+            else{
+                $("#empty_username").empty();
+                user = username.toLowerCase();
+                x1 = 1;
+            }
+
+            var email = document.forms["contact_form"]["email"].value;
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+            if(email == ""){
+                $("#empty_email").empty();
+                $("#empty_email").append("Please fill your email id");
+            }
+            else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){
+                $("#empty_email").empty();
+                $("#empty_email").append("Please enter valid email id");
+            }
+            else{
+                $("#empty_email").empty();
+                x2 = 1;
+            }
+
+            var message = document.forms["contact_form"]["message"].value;
+            if(message == ""){
+                $("#empty_message").empty();
+                $("#empty_message").append("Your message is still empty!!");
+            }
+            else{
+                $("#empty_message").empty();
+                x3 = 1;
+            }
+
+            if(x1 == 1 && x2 == 1 && x3 == 1){
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                var csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    url :  'http://127.0.0.1:8000/contact_file/',
+                    type : "POST",
+                    data : {
+                        csrfmiddlewaretoken : csrftoken,
+                        user : user,
+                        email : email,
+                        message : message,
+                    },
+                    success : function(json) {
+                        console.log(json);
+                        alert(json["message"])
+                        window.location.href = "http://127.0.0.1:8000/home_page";
+                    },
+                    error : function(xhr,errmsg,err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            }
+
+        });
+    </script>
+
+</body>
+</html>
